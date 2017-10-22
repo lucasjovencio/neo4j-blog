@@ -22,9 +22,11 @@
                         <li>
                             <a href="<?php echo base_url('admin/publicacao'); ?>"><i class="fa fa-edit fa-fw"></i> Postagens</a>
                         </li>
+                        <?php if($this->session->userdata('direito')==md5(1)){ ?>
                         <li>
                             <a href="<?php echo base_url('admin/usuarios'); ?>"><i class="fa fa-wrench fa-fw"></i> Usuários</a>
                         </li>
+                        <?php } ?>
                         <li>
                             <a href="<?php echo base_url('admin/logout'); ?>"><i class="fa fa-sign-out fa-fw"></i> Sair do Sistema</a>
                         </li>
