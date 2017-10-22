@@ -52,7 +52,9 @@ class Modelusuarios extends CI_Model {
 				email:{email},
 				user:{user},
 				img:{img},
-				historico:{historico}
+				historico:{historico},
+				direito:0,
+				ativado:0
 			})
 		";
 		if($this->neo4j->get_db()->run($query, $params)){
@@ -86,31 +88,31 @@ class Modelusuarios extends CI_Model {
 
 	public function verificar_login($user,$senha){
 		$query = "
-			MATCH (us:usuario)
-			RETURN
-				CASE
-				  WHEN us.user = {user} and us.senha = {senha}
-				    THEN 1
-				  ELSE 0
-				END AS result, us.user as user, us.img as img, us.historico as historico, us.email as email
+			MATCH (us:usuario{user:{user}})
+				where us.senha = {senha} and us.ativado=1
+					return 
+						us.user as user, us.img as img, us.historico as historico, us.email as email, us.direito as direito
 		";
 		$params = [
 				'user'=>$user,
 				'senha'=>md5($senha)
 		];
-		$result = $this->neo4j->get_db()->run($query,$params);
-        $lis = '';
-        $cont=0;
-		foreach ($result->records() as $record) {
-            $lis[$cont]['result'] 		= $record->value('result');
-            $lis[$cont]['user'] 		= $record->value('user');
-            $lis[$cont]['img'] 			= $record->value('img');
-            $lis[$cont]['historico'] 	= $record->value('historico');
-            $lis[$cont]['email'] 		= $record->value('email');
-            $cont++;
+		if($result = $this->neo4j->get_db()->run($query,$params)){
+	        $lis = '';
+	        $cont=0;
+			foreach ($result->records() as $record) {
+	            $lis[$cont]['result'] 		= 1;
+	            $lis[$cont]['user'] 		= $record->value('user');
+	            $lis[$cont]['img'] 			= $record->value('img');
+	            $lis[$cont]['historico'] 	= $record->value('historico');
+	            $lis[$cont]['email'] 		= $record->value('email');
+	            $lis[$cont]['direito'] 		= $record->value('direito');
+	            $cont++;
+			}
+			return $lis;
 		}
-
-		return $lis;
+		return $lis[0]['result']=0;
+		
 	}
 }
  
