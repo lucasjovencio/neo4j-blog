@@ -392,16 +392,15 @@ class Admin extends MX_Controller{
             $this->load->model('Modelusuarios','modelusuarios');
             $userlogado = $this->modelusuarios->verificar_login($usuario,$senha);
             if(intval($userlogado[0]['result'])){
-                
-                $dadosSessao['userlogado']=$userlogado;
+                $dadosSessao['userlogado']=$userlogado[0]['user'];
                 $dadosSessao['logado']=TRUE;
                 $this->session->set_userdata($dadosSessao);
                 redirect(base_url('admin'));
             }else{
                 $dadosSessao['userlogado']=NULL;
                 $dadosSessao['logado']=FALSE;
-                //$this->session->set_userdata($dadosSessao);
-                //redirect(base_url('admin/login'));
+                $this->session->set_userdata($dadosSessao);
+                redirect(base_url('admin/login'));
             }
         }
     }
