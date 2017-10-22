@@ -16,16 +16,16 @@ Fase de Desenvolvimento
 		+ A resposta é: Porque o objetivo não é apenas ser mais um site falando sobre algo, o próprio site é baseado no tema de discursão. Quando alguém aprender algo em algum artigo do site e quiser desenvolver em cima do blog, basta pega o código de site e se aventurar. A comunidade não está presa em apenas publicar artigos para propor soluções. As pessoas poderão interagir diretamente com o código fonte sugerindo melhorias com base no conhecimento adquirido ou já existente.
 
 
-## Arquivo de configuração Neo4j  
++ Arquivo de configuração Neo4j  
     + application/libraries/Neo4j.php 
     	+ Nesse caminho você poderá encnontrar o arquivo de configuração do neo4j, basta atualisar essas informações com as informações de sua base da dos.
 
-
+================================
 ## Caso de Uso
 
 ![image do caso de uso](https://github.com/lucasjovencio/neo4j-blog/blob/master/docs/img/Blog.jpg)
 
-
+================================
 ## Neo4j
 
 ### Nodes
