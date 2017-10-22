@@ -216,8 +216,11 @@ class Admin extends MX_Controller{
         }
     }
     public function usuarios($pular=null,$publicado=null){
-        if(!$this->session->userdata('logado')){
+        if(!$this->session->userdata('logado') ){
             redirect(base_url('admin/login'));
+        }
+        else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
         }
 
         $this->load->model('Modelusuarios','modelusuarios');
@@ -259,10 +262,12 @@ class Admin extends MX_Controller{
     }
 
     public function inserir_usuario(){
-        if(!$this->session->userdata('logado') and $this->session->userdata('direito')==md5(1)){
+        if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
         }
-
+        else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
+        }
         $this->load->model('Modelusuarios','modelusuarios');
 
         $this->load->library('form_validation');
