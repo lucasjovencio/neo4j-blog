@@ -51,7 +51,7 @@
                                         <label>Data</label>
                                         <input type="datetime-local" class="form-control" placeholder="Informe a data" id="txt-date" name="txt-date" value="<?php echo set_value('txt-date');  ?>">
                                     </div>
-                                    <input type="hidden" name="txt-id" id="txt-id" value="<?php echo "lucasjovencio";// echo($this->session->userdata('userlogado')->id); ?>">
+                                    <input type="hidden" name="txt-id" id="txt-id" value="<?php echo($this->session->userdata('userlogado')); ?>">
                                     <button type="submit" class="btn btn-default">Cadastrar</button>
                                     <?php
                                         echo form_close();
