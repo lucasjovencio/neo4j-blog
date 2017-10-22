@@ -9,11 +9,11 @@ class Admin extends MX_Controller{
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
         }
-        $dados['titulo']    =   'Publicação';
-        $dados['subtitulo'] =   'Pub';
+        $dados['titulo']    =   'Painel de Administração';
+        $dados['subtitulo'] =   '';
         $dados['subtitulodb']   =  '';
-        $arr['titulo']    =   'Publicação';
-        $arr['subtitulo'] =   'Pub';
+        $arr['titulo']    =   'Painel de Administração';
+        $arr['subtitulo'] =   '';
         $arr['subtitulodb']   =  '';
 
         $arr['heardin']=$dados;
@@ -259,7 +259,7 @@ class Admin extends MX_Controller{
     }
 
     public function inserir_usuario(){
-        if(!$this->session->userdata('logado')){
+        if(!$this->session->userdata('logado') and $this->session->userdata('direito')==md5(1)){
             redirect(base_url('admin/login'));
         }
 
@@ -393,6 +393,7 @@ class Admin extends MX_Controller{
             $userlogado = $this->modelusuarios->verificar_login($usuario,$senha);
             if(intval($userlogado[0]['result'])){
                 $dadosSessao['userlogado']=$userlogado[0]['user'];
+                $dadosSessao['direito']= md5(intval($userlogado[0]['direito']));
                 $dadosSessao['logado']=TRUE;
                 $this->session->set_userdata($dadosSessao);
                 redirect(base_url('admin'));
@@ -409,8 +410,7 @@ class Admin extends MX_Controller{
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
         }
-        $dadosSessao['userlogado']=NULL;
-        $dadosSessao['logado']=FALSE;
+        $dadosSessao= NULL;
         $this->session->set_userdata($dadosSessao);
         redirect(base_url('admin/login'));
     }
