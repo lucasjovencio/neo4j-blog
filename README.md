@@ -8,7 +8,7 @@ Fase de Desenvolvimento
 + Requisits System  
   + PHP >=5.6  
   + NEO4J >= 3.*
-  + Linux baseado em Debian or Windows
+  + Linux distribuições baseado em Debian or Windows
 
 + FrameWork de desenvolvimento
 	+ Codeigniter 3.1.6
