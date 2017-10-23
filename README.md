@@ -19,7 +19,7 @@ Fase de Desenvolvimento
 
 + Arquivo de configuração Neo4j  
     + application/libraries/Neo4j.php 
-    	+ Nesse caminho você poderá encnontrar o arquivo de configuração do neo4j, basta atualizar essas informações com as informações de sua base da dos.
+    	+ Nesse caminho você poderá encnontrar o arquivo de configuração do neo4j, basta atualizar essas informações com as informações de sua base de dados.
 
 
 # Project Status
@@ -31,17 +31,18 @@ Paginas                       |Status
 home/index              	  | Publicações aparecendo OK, falta corrigir erro que aparece quando não tem publicações ou categoria.
 home/categoria                | Publicações aparece por categoria OK, falta corrigir erro que aparece quando não tem publicações.
 home/sobrenos 				  | Falta atualizar texto em Lorem.
-home/autor               	  | Falta criar pagina para exibir informações de determinado autor.
-home/contato                  | Falta criar.
+home/autor               	  | Falta implementar pagina para exibir informações de determinado autor.
+home/contato                  | Falta implementar.
 home/pesquisa                 | Falta implementar.
 admin/index           		  | indefinidor oque aparecerá nessa pagina ainda.
-admin/categoria               | OK
-admin/categoria/alterar       | OK
-admin/categoria/excluir       | OK
+admin/perfil                  | Falta implementar.
+admin/categoria               | OK, apenas para administradores.
+admin/categoria/alterar       | OK, apenas para administradores.
+admin/categoria/excluir       | OK, apenas para administradores.
 admin/publicacao              | Falta adicionar checklist de javascripts que o autor deseja carregar, torna select categoria em checklist também.
-admin/publicacao/alterar      | Falta adicionar checklist de javascripts que o autor deseja carregar, torna select categoria em checklist também.
-admin/publicacao/excluir      | OK
-admin/usuario                 | OK, apenas para administradores
+admin/publicacao/alterar      | Falta implementar.
+admin/publicacao/excluir      | Falta implementar.
+admin/usuario                 | OK, apenas para administradores.
 
 
 Implementações
