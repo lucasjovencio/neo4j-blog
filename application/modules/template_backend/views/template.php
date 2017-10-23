@@ -17,8 +17,13 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
+                            <a href="<?php echo base_url('admin/perfil'); ?>"><i class="fa fa-wrench fa-fw"></i> Perfil</a>
+                        </li>
+                        <?php if($this->session->userdata('direito')==md5(1)){ ?>
+                        <li>
                             <a href="<?php echo base_url('admin/categoria'); ?>"><i class="fa fa-sitemap fa-fw"></i> Categorias</a>
                         </li>
+                        <?php } ?>
                         <li>
                             <a href="<?php echo base_url('admin/publicacao'); ?>"><i class="fa fa-edit fa-fw"></i> Postagens</a>
                         </li>
