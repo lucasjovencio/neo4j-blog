@@ -23,6 +23,9 @@ class Admin extends MX_Controller{
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
         }
+        else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
+        }
         //Dados a serem enviados ao cabeçalho
         $dados['titulo']    =   'Categoria';
         $dados['subtitulo'] =   'Categoria';
@@ -43,6 +46,9 @@ class Admin extends MX_Controller{
     public function inserir_categoria(){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
+        }
+        else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
         }
         $this->load->library('form_validation');
         $this->form_validation->set_rules('txt-categoria','Nome da Categoria','required|min_length[3]');
@@ -68,6 +74,9 @@ class Admin extends MX_Controller{
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
         }
+        else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
+        }
         $this->load->model("Modelcategorias","modelcategorias");
 
 
@@ -86,6 +95,9 @@ class Admin extends MX_Controller{
     public function salvar_alteracoes_categoria(){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
+        }
+        else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
         }
 
         $this->load->library('form_validation');
@@ -106,6 +118,9 @@ class Admin extends MX_Controller{
     public function excluir_categoria($id){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
+        }
+        else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
         }
 
         $this->load->model("Modelcategorias","modelcategorias");
