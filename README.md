@@ -44,7 +44,9 @@ admin/publicacao/excluir      | OK
 admin/usuario                 | OK, apenas para administradores
 
 
-##Implementações
+Implementações
+================================
+
 
 Nome                          | Descrição
 ------------------------------|------
