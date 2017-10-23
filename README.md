@@ -5,6 +5,7 @@ Muitas pessoas querem conhecer Neo4j sobre pretexto de usar em seus projetos par
 
 Fase de Desenvolvimento
 ================================
+
 + Requisits System  
   + PHP >=5.6  
   + NEO4J >= 3.*
@@ -22,9 +23,8 @@ Fase de Desenvolvimento
 
 
 # Project Status
-================================
 
-##Desenvolvimento do projeto
+## Desenvolvimento do projeto
 
 Paginas                       |Status
 ------------------------------|------
@@ -44,15 +44,25 @@ admin/publicacao/excluir      | OK
 admin/usuario                 | OK, apenas para administradores
 
 
+##Implementações
+
+Nome                          | Descrição
+------------------------------|------
+Disquis              	      | Comentario para publicações
+
+
+
+
+
+Caso de Uso
 ================================
 
-## Caso de Uso
 
 ![image do caso de uso](https://github.com/lucasjovencio/neo4j-blog/blob/master/docs/img/Blog.jpg)
 
-================================
 
-## Neo4j
+Neo4j
+================================
 
 ### Nodes
 
