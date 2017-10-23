@@ -20,6 +20,28 @@ Fase de Desenvolvimento
     + application/libraries/Neo4j.php 
     	+ Nesse caminho você poderá encnontrar o arquivo de configuração do neo4j, basta atualizar essas informações com as informações de sua base da dos.
 
+
+## Project Status
+================================
+Desenvolvimento do projeto
+
+Paginas                       |Status
+------------------------------|------
+home/index              	  | Publicações aparecendo OK, falta corrigir erro que aparece quando não tem publicações.
+home/categoria                | Publicações aparece por categoria OK, falta corrigir erro que aparece quando não tem publicações.
+home/sobrenos 				  | Falta atualizar texto em Lorem.
+home/autor               	  | Falta criar pagina para exibir informações de determinado autor.
+home/contato                  | Falta criar.
+admin/index           		  | indefinidor oque aparecerá nessa pagina ainda.
+admin/categoria               | OK
+admin/categoria/alterar       | OK
+admin/categoria/excluir       | OK
+admin/publicacao              | Falta adicionar checklist de javascripts que o autor deseja carregar, torna select categoria em checklist também.
+admin/publicacao/alterar      | Falta adicionar checklist de javascripts que o autor deseja carregar, torna select categoria em checklist também.
+admin/publicacao/excluir      | OK
+admin/usuario                 | OK, apenas para administradores
+
+
 ================================
 ## Caso de Uso
 
