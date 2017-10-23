@@ -50,7 +50,7 @@ Implementações
 
 Nome                          | Descrição
 ------------------------------|------
-Disquis              	      | Comentario para publicações
+Disqus              	      | Comentario para publicações
 
 
 
