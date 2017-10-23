@@ -21,17 +21,19 @@ Fase de Desenvolvimento
     	+ Nesse caminho você poderá encnontrar o arquivo de configuração do neo4j, basta atualizar essas informações com as informações de sua base da dos.
 
 
-## Project Status
+# Project Status
 ================================
-Desenvolvimento do projeto
+
+##Desenvolvimento do projeto
 
 Paginas                       |Status
 ------------------------------|------
-home/index              	  | Publicações aparecendo OK, falta corrigir erro que aparece quando não tem publicações.
+home/index              	  | Publicações aparecendo OK, falta corrigir erro que aparece quando não tem publicações ou categoria.
 home/categoria                | Publicações aparece por categoria OK, falta corrigir erro que aparece quando não tem publicações.
 home/sobrenos 				  | Falta atualizar texto em Lorem.
 home/autor               	  | Falta criar pagina para exibir informações de determinado autor.
 home/contato                  | Falta criar.
+home/pesquisa                 | Falta implementar.
 admin/index           		  | indefinidor oque aparecerá nessa pagina ainda.
 admin/categoria               | OK
 admin/categoria/alterar       | OK
@@ -43,11 +45,13 @@ admin/usuario                 | OK, apenas para administradores
 
 
 ================================
+
 ## Caso de Uso
 
 ![image do caso de uso](https://github.com/lucasjovencio/neo4j-blog/blob/master/docs/img/Blog.jpg)
 
 ================================
+
 ## Neo4j
 
 ### Nodes
