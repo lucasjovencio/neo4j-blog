@@ -19,10 +19,13 @@
                       <ul class="dropdown-menu">
                         
                         <?php
+                        if($categorias!=null){
                             foreach ($categorias as $categoria) {
                             ?>
                                 <li><a href="<?php echo base_url('/categoria/'.limpar($categoria['name']).'/'.$categoria['id'] ); ?> "><?php echo $categoria['name']; ?></a></li>
-                            <?php }
+                            <?php 
+                            }
+                        }
                         ?>
                       </ul>
                     </li>
