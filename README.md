@@ -72,13 +72,13 @@ Neo4j
 * `Usuario`
 * `Categoria`
 * `Publicacao`
-
-
+* `Javascript`
 
 ### Relationships
 
 * `(:Usuario)-[:publica {data:"2017-10-22T06:01"}]->(:Publicacao)`
 * `(:Publicacao)-[:contidoEm]->(:Categoria)`
+* `(:Publicacao)-[:extensaoBiblioteca]->(:Javascript)`
 
 ### Mudanças
 + Como o projeto está iniciando agora as relações e nodes estão sujeitas a mudanças assim como também a base de dados está sujeita a novos nodes e relacionamentos.
