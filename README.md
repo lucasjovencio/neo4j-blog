@@ -28,18 +28,18 @@ Fase de Desenvolvimento
 
 Paginas                       |Status
 ------------------------------|------
-home/index              	  | Publicações aparecendo OK, falta corrigir erro que aparece quando não tem publicações ou categoria.
-home/categoria                | Publicações aparece por categoria OK, falta corrigir erro que aparece quando não tem publicações.
+home/index              	  | Publicações aparecendo OK.
+home/categoria                | Publicações aparece por categoria OK.
 home/sobrenos 				  | Falta atualizar texto em Lorem.
 home/autor               	  | Falta implementar pagina para exibir informações de determinado autor.
 home/contato                  | Falta implementar.
 home/pesquisa                 | Falta implementar.
-admin/index           		  | indefinidor oque aparecerá nessa pagina ainda.
+admin/index           		  | indefinido oque aparecerá nessa pagina.
 admin/perfil                  | Falta implementar.
 admin/categoria               | OK, apenas para administradores.
 admin/categoria/alterar       | OK, apenas para administradores.
 admin/categoria/excluir       | OK, apenas para administradores.
-admin/publicacao              | Falta adicionar checklist de javascripts que o autor deseja carregar, torna select categoria em checklist também.
+admin/publicacao              | OK.
 admin/publicacao/alterar      | Falta implementar.
 admin/publicacao/excluir      | Falta implementar.
 admin/usuario                 | OK, apenas para administradores.
