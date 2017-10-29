@@ -137,7 +137,7 @@ class Admin extends MX_Controller{
 
         $this->load->model("Modelcategorias","modelcategorias");
         $this->load->model('Modelpublicacoes','modelpublicacao');
-
+        $this->load->model('Modeljavascripts','modeljavascripts');
         if(!$pular){
             $pular=0;
         }
@@ -173,6 +173,7 @@ class Admin extends MX_Controller{
         $arr['links_paginacao'] = $this->pagination->create_links();
 
         $arr['categorias']   =   $this->modelcategorias->listar_categorias();  
+        $arr['javascripts']   =   $this->modeljavascripts->listar_javascripts();
 
         $this->template->load("template_backend/main","publicacoes",$arr);
     }
@@ -186,8 +187,11 @@ class Admin extends MX_Controller{
         $this->form_validation->set_rules('txt-subtitulo','SubTítulo','required|min_length[3]');
         $this->form_validation->set_rules('txt-conteudo','Conteudo','required|min_length[25]');
         $this->form_validation->set_rules('txt-date','Data','required');
-        $this->form_validation->set_rules('select-cat','Categoria','required');
+        $this->form_validation->set_rules('select-cat[]','Categoria','required');
+        $this->form_validation->set_rules('select-js[]','JavaScript','required');
+        $this->form_validation->set_rules('userfile','Imagem','trim|xss_clean');
         $id = $this->input->post('id_img');
+
         $config['upload_path'] = './assets/frontend/img/publicacao';
         $config['allowed_types']='jpg';
         $config['file_name']=$id.'.jpg';
@@ -195,7 +199,7 @@ class Admin extends MX_Controller{
         
 
         if ($this->form_validation->run()==false){
-            $this->index();
+            $this->publicacao();
         }else{
 
             $this->load->library('upload',$config);
@@ -216,9 +220,10 @@ class Admin extends MX_Controller{
                     $date = $this->input->post("txt-date");
                     $id = $this->input->post("txt-id");
                     $cat = $this->input->post("select-cat");
+                    $js = $this->input->post("select-js");
                     $url = $config2['source_image'];
                     $this->load->model('Modelpublicacoes','modelpublicacao');
-                    if($this->modelpublicacao->adicionar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url)){
+                    if($this->modelpublicacao->adicionar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url,$js)){
                         redirect(base_url('admin/publicacao'));
                     }else{
                         echo("Houve um erro no sistema!");
