@@ -11,6 +11,7 @@
                     <small><?php echo $subtitulo; ?></small>
                 </h1>
                 <?php 
+                    if($publicacoes != null){
                     foreach ($publicacoes as $publicacao) {
                 ?>
                         <h2>
@@ -47,6 +48,7 @@
                         <hr>
                 <?php
                     }
+                }
                 ?>
                 
             </div>

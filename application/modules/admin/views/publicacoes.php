@@ -23,12 +23,19 @@
                                     ?>
                                     <div class="form-group">
                                         <label>Categoria</label>
-                                        <select id="select-cat" name="select-cat" class="form-control">
-                                            <option value="">Selecione</option>
+                                        <select multiple  id="select-cat[]" name="select-cat[]" class="form-control">
                                             <?php foreach($categorias as $categoria){?>
                                                 <option value="<?php echo $categoria['name']; ?>"><?php echo $categoria['name']; ?></option>
                                             <?php } ?>
                                             
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>JavaScripts para o artigo</label>
+                                        <select multiple  id="select-js[]" name="select-js[]" class="form-control">
+                                            <?php foreach($javascripts as $js){?>
+                                                <option value="<?php echo $js['name']; ?>"><?php echo $js['name']; ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -81,7 +88,7 @@
                                         </style>
                                         <?php
                                             $this->table->set_heading("Foto","Titulo","Data","Alterar","Excluir");
-
+                                        if($publicacoes !=null){
                                             foreach ($publicacoes as $publicacao) {
                                                 
                                                 if($publicacao['img']!='null'){
@@ -108,6 +115,7 @@
 
                                                 $this->table->add_row($fotopub,$titulopub,$datapub,$alterar,$excluir);
                                             }
+                                        }
                                             $this->table->set_template(array(
                                                 'table_open' => '<table class="table table-striped">'
                                                 ));

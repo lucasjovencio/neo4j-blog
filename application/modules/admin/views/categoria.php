@@ -56,6 +56,7 @@
                                 <div class="col-lg-12">
                                         <?php
                                             $this->table->set_heading("Nome da Categoria","Alterar","Excluir");
+                                        if($categorias !=null){
                                             foreach ($categorias as $categoria) {
                                                 $nomecat = $categoria['name'];
                                                 $id      =  $categoria['id'];
@@ -87,6 +88,7 @@
 
                                                 $this->table->add_row($nomecat,$alterar,$excluir);
                                             }
+                                        }
                                             $this->table->set_template(array(
                                                 'table_open' => '<table class="table table-striped">'
                                                 ));
