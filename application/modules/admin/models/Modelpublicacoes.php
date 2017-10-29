@@ -23,21 +23,23 @@ class Modelpublicacoes extends Abstract_model{
                 LIMIT {limit}
         ';
         $params = ['pular'=>intval($pular),'limit'=>2];
-        $result = $this->neo4j->get_db()->run($query,$params);
-        $lis = '';
-        $cont=0;
-		foreach ($result->records() as $record) {
-            $lis[$cont]['autor'] = $record->value('nome');
-            $lis[$cont]['titulo'] = $record->value('titulo');
-            $lis[$cont]['categoria'] = $record->value('name');
-            $lis[$cont]['subtitulo'] = $record->value('subtitulo');
-            $lis[$cont]['conteudo'] = $record->value('conteudo');
-            $lis[$cont]['data'] = $record->value('data');
-            $lis[$cont]['id'] = $record->value('id');
-            $lis[$cont]['img'] = $record->value('img');
-            $cont++;
-		}
-        return $lis;
+        if(($result = $this->neo4j->get_db()->run($query,$params))){
+            $lis = '';
+            $cont=0;
+    		foreach ($result->records() as $record) {
+                $lis[$cont]['autor'] = $record->value('nome');
+                $lis[$cont]['titulo'] = $record->value('titulo');
+                $lis[$cont]['categoria'] = $record->value('name');
+                $lis[$cont]['subtitulo'] = $record->value('subtitulo');
+                $lis[$cont]['conteudo'] = $record->value('conteudo');
+                $lis[$cont]['data'] = $record->value('data');
+                $lis[$cont]['id'] = $record->value('id');
+                $lis[$cont]['img'] = $record->value('img');
+                $cont++;
+    		}
+            return $lis;
+        }
+        return null;
     }
     public function contar(){
         $query = '
@@ -71,10 +73,9 @@ class Modelpublicacoes extends Abstract_model{
         }
         return 0;
     }
-    public function adicionar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url){
+    public function adicionar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url,$java){
         $query = "
-            match (autor:usuario{user:{username}}), (cat:categoria{name:{categoria}})
-
+            match (autor:usuario{user:{username}})
             create (pub:publicacao{
                 titulo:{titulo},
                 subtitulo:{subtitulo},
@@ -82,14 +83,41 @@ class Modelpublicacoes extends Abstract_model{
                 conteudo:{conteudo}
             })
             MERGE (autor)-[:publica{data:{date}}]->(pub)
-            MERGE (pub)-[:contidoEm]->(cat)
-
-            return pub
+            return id(pub) as id
         ";
-        $params = ['titulo'=>$titulo,'subtitulo'=>$subtitulo,'conteudo'=>$conteudo,'date'=>$date,'username'=>$id,'categoria'=>$cat,'url'=>$url];
-        if($this->neo4j->get_db()->run($query, $params)){
-            return 1;
+
+        $params = ['titulo'=>$titulo,'subtitulo'=>$subtitulo,'conteudo'=>$conteudo,'date'=>$date,'username'=>$id,'url'=>$url];
+        if($result=$this->neo4j->get_db()->run($query, $params)){
+
+            $idpub= $result->getRecord()->value("id");
+            $query='';
+            $result = NULL;
+            $stack = $this->neo4j->get_db()->stack();
+            
+
+            foreach ($cat as $key) {
+                $query = "
+                    match (cat:categoria{name:{categoria}}), (pub:publicacao)
+                    where id(pub) = {idpub}
+                    MERGE (pub)-[:contidoEm]->(cat)
+                ";
+                $params = ['categoria'=>$key,'idpub'=>$idpub];
+                $stack->push($query, $params);
+            };
+            foreach ($java as $key) {
+                $query = "
+                    match (jss:javascript{name:{js}}), (pub:publicacao)
+                    where id(pub) = {idpub}
+                    MERGE (pub)-[:extensaoBiblioteca]->(jss)
+                ";
+                $params = ['js'=>$key,'idpub'=>$idpub];
+                $stack->push($query, $params);
+            };
+            if($this->neo4j->get_db()->runStack($stack)){
+                return 1;
+            }
         }
+
         return 0;
     }
     public function alterar($name,$id){

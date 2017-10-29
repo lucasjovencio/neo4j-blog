@@ -1,25 +1,24 @@
 <?php
 
-class Modelcategorias extends Abstract_model{
+class Modeljavascripts extends Abstract_model{
     public function __construct() {
         parent::__construct();
     }
     
-    public function listar_categorias(){
-        $query = 'MATCH (n:categoria) RETURN n.name as name, id(n) as id  ORDER BY n.name';
+    public function listar_javascripts(){
+        $query = 'MATCH (n:javascript) RETURN n.name as name, id(n) as id, n.url as url  ORDER BY n.name';
         $result = $this->neo4j->get_db()->run($query);
         $lis = '';
         $cont=0;
-        if(($result = $this->neo4j->get_db()->run($query))){
-    		foreach ($result->records() as $record) {
-                $lis[$cont]['name'] = $record->value('name');
-                $lis[$cont]['id'] = $record->value('id');
-                $cont++;
-    		}
-            return $lis;
-        }
-        return null;
+		foreach ($result->records() as $record) {
+            $lis[$cont]['name'] = $record->value('name');
+            $lis[$cont]['id'] = $record->value('id');
+            $lis[$cont]['url'] = $record->value('url');
+            $cont++;
+		}
+        return $lis;
     }
+    /*
     public function verifica_existencia_categoria($name){
         $query = 'MATCH (n:categoria{name:{param}}) RETURN count(n) as cont';
         
@@ -65,4 +64,5 @@ class Modelcategorias extends Abstract_model{
         }
         return 0;
     }
+    */
 }
