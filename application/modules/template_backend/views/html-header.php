@@ -1,3 +1,10 @@
+<?php
+$modulo = $this->uri->segment(1);
+$controller = $this->uri->segment(2);
+$metodo = $this->uri->segment(3);
+$param = $this->uri->segment(4);
+$version = date('Hi');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +33,15 @@
     <link href="<?php echo base_url('assets/frontend/fonts/glyphicons-halflings-regular.woff'); ?>" rel="stylesheet" type="text/css">
 
     <link href="<?php echo base_url('assets/frontend/fonts/glyphicons-halflings-regular.ttf'); ?>" rel="stylesheet" type="text/css">
+
+    <?php 
+      $metodo = $this->uri->segment(2);
+      if($metodo === 'publicacao'){
+    ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/js/datetimepicker/jquery.datetimepicker.css"/>
+    <?php 
+      }
+    ?>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

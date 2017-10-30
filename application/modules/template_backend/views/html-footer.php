@@ -54,6 +54,29 @@
          });    
 
          </script>
+        <?php 
+          $metodo = $this->uri->segment(2);
+          if($metodo === 'publicacao'){
+        ?>
+            <script src="<?php echo base_url()?>assets/js/datetimepicker/jquery.js"></script>
+            <script src="<?php echo base_url()?>assets/js/datetimepicker/build/jquery.datetimepicker.full.js"></script>
+            <script>
+                  $.datetimepicker.setLocale('pt-br');
+
+                  $('.some_class').datetimepicker();
+
+                  $('#txt-date').datetimepicker({
+                    language: 'pt-BR',
+                    formatTime:'H:i:s',
+                    formatDate:'d.m.Y',
+                    step:10,
+                    timepickerScrollbar:true
+                  });
+                  $.datetimepicker.setLocale('pt-BR');
+            </script>
+        <?php 
+          }
+        ?>
 </body>
 
 </html>

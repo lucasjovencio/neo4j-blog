@@ -1,3 +1,10 @@
+<?php
+$modulo = $this->uri->segment(1);
+$controller = $this->uri->segment(2);
+$metodo = $this->uri->segment(3);
+$param = $this->uri->segment(4);
+$version = date('Hi');
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
