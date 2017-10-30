@@ -63,6 +63,11 @@ Caso de Uso
 
 ![image do caso de uso](https://github.com/lucasjovencio/neo4j-blog/blob/master/docs/img/Blog.jpg)
 
+Diagrama de Contexto
+================================
+
+
+![image do caso de uso](https://github.com/lucasjovencio/neo4j-blog/blob/master/docs/img/contexto.jpg)
 
 Neo4j
 ================================
