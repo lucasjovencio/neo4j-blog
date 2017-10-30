@@ -67,7 +67,7 @@ Diagrama de Contexto
 ================================
 
 
-![image do Diagrama de contexto](https://github.com/lucasjovencio/neo4j-blog/blob/master/docs/img/contexto.jpg)
+![image do Diagrama de contexto](https://github.com/lucasjovencio/neo4j-blog/blob/master/docs/img/contexto.png)
 
 Neo4j
 ================================
