@@ -41,10 +41,9 @@
                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             
                 </div>
-                <br>
-                 <h1 class="page-header">
+                 <h2 class="page-header">
                    Nossos autores
-                </h1>
+                </h2>
                 <div class="col-md-12 row">
                 <?php 
                     foreach ($autores as $autor) {

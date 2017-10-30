@@ -143,6 +143,34 @@ class Home extends MX_Controller{
         $arr['footerurl'] = $foot;
         $this->template->load("template_frontend/main","sobrenos",$arr);
     }
+    public function autor($id,$slug=null){
+        $dados['onePublicacao']=0;
+        $foot['onePublicacao']=0;
+        $this->load->model("Modelcategorias","modelcategorias");
+        $this->load->model("Modelusuarios","modelusuarios");
+        $dados['categorias']   =   $this->modelcategorias->listar_categorias();
+        $arr['autor'] =$this->modelusuarios->listar_autor($id);
+       
+
+        $dados['onePublicacao']=0;
+        $foot['onePublicacao']=0;
+
+        //Dados a serem enviados ao cabeçalho
+
+
+        $dados['titulo']    =   'Autor';
+        $dados['subtitulo'] =   $arr['autor'][0]['nome'];
+        $dados['subtitulodb']   =  '';
+        $arr['titulo']    =   'Autor';
+        $arr['subtitulo'] =   $arr['autor'][0]['nome'];
+        $arr['subtitulodb']   =  '';
+
+
+        $arr['footerurl'] = $foot;
+
+        $arr['heardin']=$dados;
+        $this->template->load("template_frontend/main","autor",$arr);
+    }
 }
 
 /* End of file users.php */

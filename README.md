@@ -31,7 +31,7 @@ Paginas                       |Status
 home/index              	  | Publicações aparecendo OK.
 home/categoria                | Publicações aparece por categoria OK.
 home/sobrenos 				  | Falta atualizar texto em Lorem.
-home/autor               	  | Falta implementar pagina para exibir informações de determinado autor.
+home/autor               	  | OK.
 home/contato                  | Falta implementar.
 home/pesquisa                 | Falta implementar.
 admin/index           		  | indefinido oque aparecerá nessa pagina.

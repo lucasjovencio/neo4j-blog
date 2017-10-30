@@ -81,6 +81,7 @@ $route['categoria/(:any)/(:num)/(:num)'] = 'home/categoria/$1/$2/$3';
 /* FIM */
 
 $route['sobrenos'] = 'home/sobrenos';
+$route['autor/(:num)/(:any)'] = 'home/autor/$1/$2';
 
 
 /* Rotas para Usuarios ADM */
