@@ -49,9 +49,9 @@ Implementações
 ================================
 
 
-Nome                          | Descrição
-------------------------------|------
-Disqus              	      | Comentario para publicações
+Nome                          | Descrição					| Status
+------------------------------|-----------------------------|-------
+Disqus              	      | Comentario para publicações | Estudando Implementação
 
 
 
