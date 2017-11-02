@@ -143,7 +143,7 @@ class Admin extends MX_Controller{
         }
 
         /* Paginacao */
-        $post_por_pagina = 2;//(null == $post_por_pagina) ? 2 : $post_por_pagina;
+        $post_por_pagina = 5;//(null == $post_por_pagina) ? 2 : $post_por_pagina;
         $config['base_url']     = base_url("admin/publicacao");
         $config['total_rows']   = $this->modelpublicacao->contar();
         $config['per_page']     = $post_por_pagina;
@@ -177,6 +177,37 @@ class Admin extends MX_Controller{
 
         $this->template->load("template_backend/main","publicacoes",$arr);
     }
+    public function publicar($publicado=null){
+        if(!$this->session->userdata('logado')){
+            redirect(base_url('admin/login'));
+        }
+
+        $this->load->model("Modelcategorias","modelcategorias");
+        $this->load->model('Modelpublicacoes','modelpublicacao');
+        $this->load->model('Modeljavascripts','modeljavascripts');
+
+        //Dados a serem enviados ao cabeçalho
+        $dados['titulo']    =   'Publicação';
+        $dados['subtitulo'] =   'Publicação';
+
+
+        $arr['titulo']      =   'Publicação';
+        $arr['subtitulo']   =   'Publicação';
+        $arr['publicado']   =   $publicado;
+        $arr['heardin']     =   $dados;
+
+
+        $this->load->library('table');
+
+        $this->load->helper('date');
+
+        $arr['categorias']   =   $this->modelcategorias->listar_categorias();  
+        $arr['javascripts']   =   $this->modeljavascripts->listar_javascripts();
+
+        $this->template->load("template_backend/main","publicar",$arr);
+
+
+    }
     public function inserir_publicacao(){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
@@ -199,7 +230,7 @@ class Admin extends MX_Controller{
         
 
         if ($this->form_validation->run()==false){
-            $this->publicacao();
+            $this->publicar();
         }else{
 
             $this->load->library('upload',$config);
@@ -224,7 +255,7 @@ class Admin extends MX_Controller{
                     $url = $config2['source_image'];
                     $this->load->model('Modelpublicacoes','modelpublicacao');
                     if($this->modelpublicacao->adicionar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url,$js)){
-                        redirect(base_url('admin/publicacao'));
+                        redirect(base_url('admin/publicar'));
                     }else{
                         echo("Houve um erro no sistema!");
                     }
@@ -279,6 +310,28 @@ class Admin extends MX_Controller{
         $arr['links_paginacao'] = $this->pagination->create_links();
 
         $this->template->load("template_backend/main","usuarios",$arr);
+    }
+    public function perfil(){
+        if(!$this->session->userdata('logado')){
+            redirect(base_url('admin/login'));
+        }
+
+        $this->load->model('Modelusuarios','modelusuarios');
+        
+        $arr['usuario'] = $this->modelusuarios->usuario_detalhes($this->session->userdata('userlogado'));
+        $this->load->library('table');
+
+        $this->load->helper('date');
+        //Dados a serem enviados ao cabeçalho
+        $dados['titulo']    =   $arr['usuario'][0]['nome'];
+        $dados['subtitulo'] =   $arr['usuario'][0]['nome'];
+
+
+        $arr['titulo']      =   $arr['usuario'][0]['nome'];
+        $arr['subtitulo']   =   $arr['usuario'][0]['nome'];
+        $arr['heardin']     =   $dados;
+
+        $this->template->load("template_backend/main","perfil",$arr); 
     }
 
     public function inserir_usuario(){
@@ -341,7 +394,9 @@ class Admin extends MX_Controller{
         $this->load->model('Modelusuarios','modelusuarios');
         
         $arr['usuario'] = $this->modelusuarios->usuario_detalhes($id);
+        $this->load->library('table');
 
+        $this->load->helper('date');
         //Dados a serem enviados ao cabeçalho
         $dados['titulo']    =   'Painel de Usuário';
         $dados['subtitulo'] =   'Alterar Usuário';
@@ -349,7 +404,6 @@ class Admin extends MX_Controller{
 
         $arr['titulo']      =   'Painel de Usuário';
         $arr['subtitulo']   =   'Alterar Usuário';
-        $arr['publicado']   =   $publicado;
         $arr['heardin']     =   $dados;
 
         $this->template->load("template_backend/main","alterar_usuario",$arr);
@@ -373,9 +427,8 @@ class Admin extends MX_Controller{
 
         $this->form_validation->set_rules('txt-senha-2','Confirma Senha','required|min_length[3]|matches[txt-senha]');
 
-        die();
         if ($this->form_validation->run()==false){
-            $this->alterar($this->input->post("txt-id"));
+            $this->alterar_usuario($this->input->post("txt-id"));
         }else{
 
             $nome = $this->input->post("txt-nome");
@@ -391,7 +444,42 @@ class Admin extends MX_Controller{
             }
         }
     }
+    public function salvar_alteracoes_perfil(){
+        if(!$this->session->userdata('logado')){
+            redirect(base_url('admin/login'));
+        }
 
+        $this->load->model('Modelusuarios','modelusuarios');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('txt-nome','Nome do Usuário', 'required|min_length[3]');
+         
+
+        $this->form_validation->set_rules('txt-email','Email','required|valid_email');
+
+        $this->form_validation->set_rules('txt-historico','Historico','required|min_length[20]');
+
+        $this->form_validation->set_rules('txt-senha','Senha','required|min_length[3]');
+
+        $this->form_validation->set_rules('txt-senha-2','Confirma Senha','required|min_length[3]|matches[txt-senha]');
+
+        if ($this->form_validation->run()==false){
+            $this->perfil($this->input->post("txt-id"));
+        }else{
+
+            $nome = $this->input->post("txt-nome");
+            $email = $this->input->post("txt-email");
+            $historico = $this->input->post("txt-historico");
+            $user = $this->input->post("txt-user");
+            $senha = $this->input->post("txt-senha");
+            $id = $this->input->post("txt-id");
+            if($this->modelusuarios->alterar($nome,$email,$historico,$user,$senha,$id)){
+                redirect(base_url('admin/perfil'));
+            }else{
+                echo("Houve um erro no sistema!");
+            }
+        }
+    }
     public function pag_login(){
         //Dados a serem enviados ao cabeçalho
         $dados['titulo']    =   'Painel de Controle';
