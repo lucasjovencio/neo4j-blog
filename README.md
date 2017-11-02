@@ -43,9 +43,9 @@ admin/publicacao              | OK.
 admin/publicacao/alterar      | Falta implementar.
 admin/publicacao/excluir      | Falta implementar.
 admin/usuario                 | OK, apenas para administradores.
-admin/usuario/alterar         | OK
-admin/usuario/desativar       | OK
-admin/usuario/ativar	      | OK
+admin/usuario/alterar         | OK, apenas para administradores.
+admin/usuario/desativar       | OK, apenas para administradores.
+admin/usuario/ativar	      | OK, apenas para administradores.
 admin/perfil         		  | OK
 admin/perfil/atualizar        | OK
 
