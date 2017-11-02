@@ -1,20 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Home extends MX_Controller{
+    private $dados;
+    private $foot;
+    
 	public function __construct(){
             parent::__construct();
             date_default_timezone_set('America/Sao_Paulo');
-
+            $this->dados['onePublicacao']=0;
+            $this->foot['onePublicacao']=0;
     }
     public function index($pular=null,$post_por_pagina=null){
         $this->load->model('Modelpublicacoes','modelpublicacao');
         $this->load->model("Modelcategorias","modelcategorias");
 
-        $dados['onePublicacao']=0;
-        $foot['onePublicacao']=0;
-
-        if(! $dados['categorias']   =   $this->modelcategorias->listar_categorias()){
-            $dados['categorias'] = null;
+        if(! $this->dados['categorias']   =   $this->modelcategorias->listar_categorias()){
+            $this->dados['categorias'] = null;
         }
         if(!$pular){
             $pular=0;
@@ -30,54 +31,52 @@ class Home extends MX_Controller{
         //Dados a serem enviados ao cabeçalho
 
 
-        $dados['titulo']    =   'Publicação';
-        $dados['subtitulo'] =   'Recentes';
-        $dados['subtitulodb']   =  '';
+        $this->dados['titulo']    =   'Publicação';
+        $this->dados['subtitulo'] =   'Recentes';
+        $this->dados['subtitulodb']   =  '';
         $arr['titulo']    =   'Publicação';
         $arr['subtitulo'] =   'Recentes';
         $arr['subtitulodb']   =  '';
 
-        $arr['heardin']=$dados;
+        $arr['heardin']=$this->dados;
 
         if(!$arr['publicacoes']   =   $this->modelpublicacao->listar_publicacao($pular,$post_por_pagina)){
             $arr['publicacoes'] = null;
         }
         
-    
-
-        $arr['footerurl'] = $foot;
+        $arr['footerurl'] = $this->dados;
         $this->template->load("template_frontend/main","index",$arr);
     }
     public function publicacao($id,$slug){
         $this->load->model('Modelpublicacoes','modelpublicacao');
         $this->load->model("Modelcategorias","modelcategorias");
-        $dados['categorias']   =   $this->modelcategorias->listar_categorias();
+        $this->dados['categorias']   =   $this->modelcategorias->listar_categorias();
 
         if(!$arr['publicacao']      =   $this->modelpublicacao->single_publicacao($id)){
             $arr['publicacao'] = null;
         }
         
        
-        $dados['publicacaoCategorias'] = $arr['publicacao'][0]['categoria'];
-        $dados['publicacaoJs'] = $arr['publicacao'][0]['javascript'];
-        $foot['js'] = $arr['publicacao'][0]['urlJS'];
+        $this->dados['publicacaoCategorias'] = $arr['publicacao'][0]['categoria'];
+        $this->dados['publicacaoJs'] = $arr['publicacao'][0]['javascript'];
+        $this->dados['js'] = $arr['publicacao'][0]['urlJS'];
 
-        $dados['onePublicacao']=1;
-        $foot['onePublicacao']=1;
+        $this->dados['onePublicacao']=1;
+        $this->dados['onePublicacao']=1;
 
         //Dados a serem enviados ao cabeçalho
 
 
-        $dados['titulo']    =   'Publicação';
-        $dados['subtitulo'] =   $arr['publicacao'][0]['titulo'];
-        $dados['subtitulodb']   =  '';
+        $this->dados['titulo']    =   'Publicação';
+        $this->dados['subtitulo'] =   $arr['publicacao'][0]['titulo'];
+        $this->dados['subtitulodb']   =  '';
         $arr['titulo']    =   'Publicação';
         $arr['subtitulo'] =   $arr['publicacao'][0]['titulo'];
         $arr['subtitulodb']   =  '';
 
-        $arr['footerurl'] = $foot;
+        $arr['footerurl'] = $this->dados;
 
-        $arr['heardin']=$dados;
+        $arr['heardin']=$this->dados;
         $this->template->load("template_frontend/main","publicacao",$arr);
 
     }
@@ -85,10 +84,8 @@ class Home extends MX_Controller{
         $this->load->model('Modelpublicacoes','modelpublicacao');
         $this->load->model("Modelcategorias","modelcategorias");
 
-        $dados['onePublicacao']=0;
-        $foot['onePublicacao']=0;
-
-        $dados['categorias']    =   $this->modelcategorias->listar_categorias();
+        
+        $this->dados['categorias']    =   $this->modelcategorias->listar_categorias();
         if(!$pular){
             $pular=0;
         }               
@@ -111,64 +108,59 @@ class Home extends MX_Controller{
         
         $arr['publicacoes']    =   $this->modelpublicacao->listar_publicacao_categoria($id,$pular,$post_por_pagina);
 
-        $dados['titulo']        =   'Publicações';
-        $dados['subtitulo']     =   $arr['publicacoes'][0]['categoria'];
-        $dados['subtitulodb']   =  '';
+        $this->dados['titulo']        =   'Publicações';
+        $this->dados['subtitulo']     =   $arr['publicacoes'][0]['categoria'];
+        $this->dados['subtitulodb']   =  '';
         $arr['titulo']          =   'Publicações';
         $arr['subtitulo']       =   $arr['publicacoes'][0]['categoria'];
         $arr['subtitulodb']     =  '';
 
-        $arr['heardin']=$dados;
-        $arr['footerurl'] = $foot;
+        $arr['heardin']=$this->dados;
+        $arr['footerurl'] = $this->dados;
         $this->template->load("template_frontend/main","categoria",$arr);
     }
     public function sobrenos(){
         $this->load->model("Modelusuarios","modelusuarios");
         $this->load->model("Modelcategorias","modelcategorias");
-        $dados['onePublicacao']=0;
-        $foot['onePublicacao']=0;
-        
-        $arr['autores'] =$this->modelusuarios->listar_autores();
-        $dados['categorias']   =   $this->modelcategorias->listar_categorias();    
 
         
-        $dados['titulo']    =   'Sobre Nos';
-        $dados['subtitulo'] =   'Autores';
-        $dados['subtitulodb']   =  '';
+        $arr['autores'] =$this->modelusuarios->listar_autores();
+        $this->dados['categorias']   =   $this->modelcategorias->listar_categorias();    
+
+        
+        $this->dados['titulo']    =   'Sobre Nos';
+        $this->dados['subtitulo'] =   'Autores';
+        $this->dados['subtitulodb']   =  '';
         $arr['titulo']    =   'Sobre Nos';
         $arr['subtitulo'] =   'Autores';
         $arr['subtitulodb']   =  '';
 
-        $arr['heardin']=$dados;
-        $arr['footerurl'] = $foot;
+        $arr['heardin']=$this->dados;
+        $arr['footerurl'] = $this->dados;
         $this->template->load("template_frontend/main","sobrenos",$arr);
     }
     public function autor($id,$slug=null){
-        $dados['onePublicacao']=0;
-        $foot['onePublicacao']=0;
+
         $this->load->model("Modelcategorias","modelcategorias");
         $this->load->model("Modelusuarios","modelusuarios");
-        $dados['categorias']   =   $this->modelcategorias->listar_categorias();
+        $this->dados['categorias']   =   $this->modelcategorias->listar_categorias();
         $arr['autor'] =$this->modelusuarios->listar_autor($id);
        
-
-        $dados['onePublicacao']=0;
-        $foot['onePublicacao']=0;
 
         //Dados a serem enviados ao cabeçalho
 
 
-        $dados['titulo']    =   'Autor';
-        $dados['subtitulo'] =   $arr['autor'][0]['nome'];
-        $dados['subtitulodb']   =  '';
+        $this->dados['titulo']    =   'Autor';
+        $this->dados['subtitulo'] =   $arr['autor'][0]['nome'];
+        $this->dados['subtitulodb']   =  '';
         $arr['titulo']    =   'Autor';
         $arr['subtitulo'] =   $arr['autor'][0]['nome'];
         $arr['subtitulodb']   =  '';
 
 
-        $arr['footerurl'] = $foot;
+        $arr['footerurl'] = $this->dados;
 
-        $arr['heardin']=$dados;
+        $arr['heardin']=$this->dados;
         $this->template->load("template_frontend/main","autor",$arr);
     }
 }
