@@ -390,7 +390,9 @@ class Admin extends MX_Controller{
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
         }
-
+        else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
+        }
         $this->load->model('Modelusuarios','modelusuarios');
         
         $arr['usuario'] = $this->modelusuarios->usuario_detalhes($id);
@@ -411,6 +413,8 @@ class Admin extends MX_Controller{
     public function desativar_usuario($id){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
+        }else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
         }
         $this->load->model('Modelusuarios','modelusuarios');
 
@@ -423,6 +427,8 @@ class Admin extends MX_Controller{
     public function ativar_usuario($id){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
+        }else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
         }
         $this->load->model('Modelusuarios','modelusuarios');
 
@@ -436,6 +442,8 @@ class Admin extends MX_Controller{
     public function salvar_alteracoes_usuario(){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
+        }else if($this->session->userdata('direito')==md5(0)){
+            redirect(base_url('admin'));
         }
 
         $this->load->model('Modelusuarios','modelusuarios');
