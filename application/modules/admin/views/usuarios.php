@@ -80,20 +80,116 @@
                                             }
                                         </style>
                                         <?php
-                                            $this->table->set_heading("Foto","Nome do Usuário","Alterar","Excluir");
+                                            $this->table->set_heading("Foto","Nome do Usuário","Alterar","Desativar");
 
                                             foreach ($usuarios as $usuario) {
-                                                if($usuario['img']!='null'){
-                                                    $fotouser = img($usuario['img']);
-                                                }
-                                                else{
-                                                    $fotouser = img('/assets/frontend/img/usuarios/semFoto.png');
-                                                }
-                                                $nomeuser = $usuario['nome'];
-                                                $alterar = anchor(base_url('admin/alterar_usuario/'.$usuario['id']),'<i class="fa fa-refresh fa-fw"></i> Alterar');
-                                                $excluir = anchor(base_url('admin/excluir_usuario'.md5($usuario['id'])),'<i class="fa fa-remove fa-fw"></i> Excluir');
+                                                if(intval($usuario['ativado'])==1){
+                                                    if($usuario['img']!='null'){
+                                                        $fotouser = img($usuario['img']);
+                                                    }
+                                                    else{
+                                                        $fotouser = img('/assets/frontend/img/usuarios/semFoto.png');
+                                                    }
+                                                    $nomeuser = $usuario['nome'];
+                                                    $alterar = anchor(base_url('admin/alterar_usuario/'.$usuario['id']),'<i class="fa fa-refresh fa-fw"></i> Alterar');
+                                                    
+                                                    $excluir= '<button type="button" style="padding: 0px;" class="btn btn-link" data-toggle="modal" data-target=".excluir-modal-'.md5($usuario['id']).'"><i class="fa fa-remove fa-fw"></i> Desativar</button>';
 
-                                                $this->table->add_row($fotouser,$nomeuser,$alterar,$excluir);
+                                                        echo $modal= ' <div class="modal fade excluir-modal-'.md5($usuario['id']).'" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm">
+                                                                <div class="modal-content">
+
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                        <h4 class="modal-title" id="myModalLabel2">Desativar Usuario</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <h4>Deseja Desativar o Usuario '.$usuario['nome'].'?</h4>
+                                                                        <p>Após Desativar o usuario <b>'.$usuario['nome'].'</b> não tera mais acesso ao sistema.</p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <a type="button" class="btn btn-primary" href="'.base_url("admin/desativar_usuario/".$usuario['id']).'">Desativar</a>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+
+                                                    $this->table->add_row($fotouser,$nomeuser,$alterar,$excluir);
+                                                }
+                                            }
+                                            $this->table->set_template(array(
+                                                'table_open' => '<table class="table table-striped">'
+                                                ));
+                                            echo $this->table->generate();
+                                            echo "<div class='paginacao'>".$links_paginacao."</div>";
+                                        ?>
+                                </div>
+                                
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Usuarios Desativados
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                        <style>
+                                            img{
+                                                width: 60px;
+                                            }
+                                        </style>
+                                        <?php
+                                            $this->table->set_heading("Foto","Nome do Usuário","Alterar","Ativar");
+
+                                            foreach ($usuarios as $usuario) {
+                                                if(intval($usuario['ativado'])==0){
+                                                    if($usuario['img']!='null'){
+                                                        $fotouser = img($usuario['img']);
+                                                    }
+                                                    else{
+                                                        $fotouser = img('/assets/frontend/img/usuarios/semFoto.png');
+                                                    }
+                                                    $nomeuser = $usuario['nome'];
+                                                    $alterar = anchor(base_url('admin/alterar_usuario/'.$usuario['id']),'<i class="fa fa-refresh fa-fw"></i> Alterar');
+                                                    
+                                                    $excluir= '<button type="button" style="padding: 0px;" class="btn btn-link" data-toggle="modal" data-target=".excluir-modal-'.md5($usuario['id']).'"><i class="fa fa-remove fa-fw"></i> Ativar</button>';
+
+                                                        echo $modal= ' <div class="modal fade excluir-modal-'.md5($usuario['id']).'" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm">
+                                                                <div class="modal-content">
+
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                        <h4 class="modal-title" id="myModalLabel2">Desativar Usuario</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <h4>Deseja Ativar o Usuario '.$usuario['nome'].'?</h4>
+                                                                        <p>Após Ativar o usuario <b>'.$usuario['nome'].'</b> tera acesso ao sistema.</p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                        <a type="button" class="btn btn-primary" href="'.base_url("admin/ativar_usuario/".$usuario['id']).'">Ativar</a>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+
+                                                    $this->table->add_row($fotouser,$nomeuser,$alterar,$excluir);
+                                                }
                                             }
                                             $this->table->set_template(array(
                                                 'table_open' => '<table class="table table-striped">'
