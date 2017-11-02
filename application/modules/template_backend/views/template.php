@@ -25,7 +25,10 @@
                         </li>
                         <?php } ?>
                         <li>
-                            <a href="<?php echo base_url('admin/publicacao'); ?>"><i class="fa fa-edit fa-fw"></i> Postagens</a>
+                            <a href="<?php echo base_url('admin/publicacao'); ?>"><i class="fa fa-list-alt fa-fw"></i> Postagens</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url('admin/publicar'); ?>"><i class="fa fa-edit fa-fw"></i> Adicionar Artigo</a>
                         </li>
                         <?php if($this->session->userdata('direito')==md5(1)){ ?>
                         <li>
