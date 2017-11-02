@@ -22,7 +22,7 @@ class Modelpublicacoes extends Abstract_model{
                 SKIP {pular} 
                 LIMIT {limit}
         ';
-        $params = ['pular'=>intval($pular),'limit'=>2];
+        $params = ['pular'=>intval($pular),'limit'=>$post_por_pagina];
         if(($result = $this->neo4j->get_db()->run($query,$params))){
             $lis = '';
             $cont=0;
