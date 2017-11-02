@@ -87,7 +87,9 @@ $route['autor/(:num)/(:any)'] = 'home/autor/$1/$2';
 /* Rotas para Usuarios ADM */
 
 $route['admin/perfil'] = 'admin/perfil';
-$route['admin/usuarios/alterar_usuario'] = 'admin/salvar_alteracoes_usuario';
+$route['admin/usuarios/alterar_usuario'] 		= 'admin/salvar_alteracoes_usuario';
+$route['admin/desativar_usuario/(:any)'] 		= 'admin/desativar_usuario/$1';
+$route['admin/ativar_usuario/(:any)'] 			= 'admin/ativar_usuario/$1';
 $route['admin/perfil/salvar_alteracoes_perfil'] = 'admin/salvar_alteracoes_perfil';
 
 
