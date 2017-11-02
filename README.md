@@ -34,7 +34,7 @@ home/sobrenos 				  | Falta atualizar texto em Lorem.
 home/autor               	  | OK.
 home/pesquisa                 | Falta implementar.
 admin/index           		  | indefinido oque aparecerá nessa pagina.
-admin/perfil                  | Falta implementar.
+admin/perfil                  | OK.
 admin/categoria               | OK, apenas para administradores.
 admin/categoria/alterar       | OK, apenas para administradores.
 admin/categoria/excluir       | OK, apenas para administradores.
@@ -43,10 +43,11 @@ admin/publicacao              | OK.
 admin/publicacao/alterar      | Falta implementar.
 admin/publicacao/excluir      | Falta implementar.
 admin/usuario                 | OK, apenas para administradores.
-admin/usuario/alterar         | Implementando
-admin/usuario/excluir         | Implementando
+admin/usuario/alterar         | OK
+admin/usuario/desativar       | OK
+admin/usuario/ativar	      | OK
 admin/perfil         		  | OK
-admin/perfil/atualizar        | Implementando
+admin/perfil/atualizar        | OK
 
 Implementações
 ================================
