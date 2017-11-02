@@ -32,18 +32,21 @@ home/index              	  | Publicações aparecendo OK.
 home/categoria                | Publicações aparece por categoria OK.
 home/sobrenos 				  | Falta atualizar texto em Lorem.
 home/autor               	  | OK.
-home/contato                  | Falta implementar.
 home/pesquisa                 | Falta implementar.
 admin/index           		  | indefinido oque aparecerá nessa pagina.
 admin/perfil                  | Falta implementar.
 admin/categoria               | OK, apenas para administradores.
 admin/categoria/alterar       | OK, apenas para administradores.
 admin/categoria/excluir       | OK, apenas para administradores.
+admin/publicar                | OK.
 admin/publicacao              | OK.
 admin/publicacao/alterar      | Falta implementar.
 admin/publicacao/excluir      | Falta implementar.
 admin/usuario                 | OK, apenas para administradores.
-
+admin/usuario/alterar         | Implementando
+admin/usuario/excluir         | Implementando
+admin/perfil         		  | OK
+admin/perfil/atualizar        | Implementando
 
 Implementações
 ================================
