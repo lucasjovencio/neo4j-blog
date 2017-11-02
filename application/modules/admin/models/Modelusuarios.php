@@ -70,7 +70,7 @@ class Modelusuarios extends CI_Model {
 			MATCH (us:usuario{
 				user:{user}
 			})
-			RETURN n.nome as nome, n.user as id, n.img as img, n.historico as historico, n.email as email
+			RETURN us.nome as nome, us.user as id, us.img as img, us.historico as historico, us.email as email
 		";
 		$result = $this->neo4j->get_db()->run($query,$params);
         $lis = '';
@@ -85,7 +85,6 @@ class Modelusuarios extends CI_Model {
 		}
         return $lis;
 	}
-
 	public function verificar_login($user,$senha){
 		$query = "
 			MATCH (us:usuario{user:{user}})
@@ -113,6 +112,10 @@ class Modelusuarios extends CI_Model {
 		}
 		return $lis[0]['result']=0;
 		
+	}
+
+	public function alterar($nome,$email,$historico,$user,$senha,$img){
+
 	}
 }
  
