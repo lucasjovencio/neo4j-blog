@@ -408,6 +408,31 @@ class Admin extends MX_Controller{
 
         $this->template->load("template_backend/main","alterar_usuario",$arr);
     }
+    public function desativar_usuario($id){
+        if(!$this->session->userdata('logado')){
+            redirect(base_url('admin/login'));
+        }
+        $this->load->model('Modelusuarios','modelusuarios');
+
+        if($this->modelusuarios->desativar($id)){
+            $this->usuarios();
+        }else{
+            echo("Houve um erro no sistema!");
+        }
+    }
+    public function ativar_usuario($id){
+        if(!$this->session->userdata('logado')){
+            redirect(base_url('admin/login'));
+        }
+        $this->load->model('Modelusuarios','modelusuarios');
+
+        if($this->modelusuarios->ativar($id)){
+            $this->usuarios();
+        }else{
+            echo("Houve um erro no sistema!");
+        }
+    }
+
     public function salvar_alteracoes_usuario(){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
@@ -427,20 +452,33 @@ class Admin extends MX_Controller{
 
         $this->form_validation->set_rules('txt-senha-2','Confirma Senha','required|min_length[3]|matches[txt-senha]');
 
+
+
         if ($this->form_validation->run()==false){
             $this->alterar_usuario($this->input->post("txt-id"));
         }else{
+            $id_img = $this->input->post('id_img');
+            $config['upload_path'] = './assets/frontend/img/usuarios';
+            $config['allowed_types']='jpg';
+            $config['file_name']=$id_img.'.jpg';
+            $config['overwrite']=TRUE;
 
-            $nome = $this->input->post("txt-nome");
-            $email = $this->input->post("txt-email");
-            $historico = $this->input->post("txt-historico");
-            $user = $this->input->post("txt-user");
-            $senha = $this->input->post("txt-senha");
-            $id = $this->input->post("txt-id");
-            if($this->modelusuarios->alterar($nome,$email,$historico,$user,$senha,$id)){
-                redirect(base_url('admin/usuarios'));
+            $this->load->library('upload',$config);
+            if(!$this->upload->do_upload()){
+                echo $this->upload->display_errors();
             }else{
-                echo("Houve um erro no sistema!");
+                $nome = $this->input->post("txt-nome");
+                $email = $this->input->post("txt-email");
+                $historico = $this->input->post("txt-historico");
+                $senha = $this->input->post("txt-senha");
+                $id = $this->input->post("txt-id");
+                
+                $img = 'assets/frontend/img/usuarios/'.$id_img.'.jpg';
+                if($this->modelusuarios->alterar($nome,$email,$historico,$id,$senha,$img)){
+                    $this->alterar_usuario($this->input->post("txt-id"));
+                }else{
+                    echo("Houve um erro no sistema!");
+                }
             }
         }
     }
@@ -466,17 +504,26 @@ class Admin extends MX_Controller{
         if ($this->form_validation->run()==false){
             $this->perfil($this->input->post("txt-id"));
         }else{
-
-            $nome = $this->input->post("txt-nome");
-            $email = $this->input->post("txt-email");
-            $historico = $this->input->post("txt-historico");
-            $user = $this->input->post("txt-user");
-            $senha = $this->input->post("txt-senha");
-            $id = $this->input->post("txt-id");
-            if($this->modelusuarios->alterar($nome,$email,$historico,$user,$senha,$id)){
-                redirect(base_url('admin/perfil'));
+            $id_img = $this->input->post('id_img');
+            $config['upload_path'] = './assets/frontend/img/usuarios';
+            $config['allowed_types']='jpg';
+            $config['file_name']=$id_img.'.jpg';
+            $config['overwrite']=TRUE;
+            $this->load->library('upload',$config);
+            if(!$this->upload->do_upload()){
+                echo $this->upload->display_errors();
             }else{
-                echo("Houve um erro no sistema!");
+                $nome = $this->input->post("txt-nome");
+                $email = $this->input->post("txt-email");
+                $historico = $this->input->post("txt-historico");
+                $senha = $this->input->post("txt-senha");
+                $id = $this->input->post("txt-id");
+                $img = 'assets/frontend/img/usuarios/'.$id_img.'.jpg';
+                if($this->modelusuarios->alterar($nome,$email,$historico,$id,$senha,$img)){
+                    redirect(base_url('admin/perfil'));
+                }else{
+                    echo("Houve um erro no sistema!");
+                }
             }
         }
     }
