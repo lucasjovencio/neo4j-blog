@@ -63,7 +63,7 @@ $route['admin/categoria/alterar/(:any)'] = 'admin/alterar_categoria/$1';
 
 /* PUblicacao ADM */
 $route['admin/publicacao/(:num)/(:any)'] = 'admin/publicacao/$1/$2';
-
+$route['admin/publicar/(:any)'] = 'admin/publicar/$1';
 /* FIM */
 
 /* PUblicacao Geral */
@@ -86,7 +86,11 @@ $route['autor/(:num)/(:any)'] = 'home/autor/$1/$2';
 
 /* Rotas para Usuarios ADM */
 
+$route['admin/perfil'] = 'admin/perfil';
 $route['admin/usuarios/alterar_usuario'] = 'admin/salvar_alteracoes_usuario';
+$route['admin/perfil/salvar_alteracoes_perfil'] = 'admin/salvar_alteracoes_perfil';
+
+
 
 $route['admin/login'] = 'admin/pag_login';
 
