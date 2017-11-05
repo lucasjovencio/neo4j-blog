@@ -43,8 +43,8 @@
                                                     $fotopub = img($image_properties);
                                                 }
                                                 $titulopub = $publicacao['titulo'];
-                                                $datapub = '10/10/2017 às 21:30';//postadoem($publicacao->data);
-                                                $alterar = anchor(base_url('admin/publicacao/alterar/'.md5($publicacao['id'])),'<i class="fa fa-refresh fa-fw"></i> Alterar');
+                                                $datapub = postadoem($publicacao['data']);
+                                                $alterar = anchor(base_url('admin/publicacao/alterar/'.$publicacao['id']),'<i class="fa fa-refresh fa-fw"></i> Alterar');
                                                 $excluir = anchor(base_url('admin/publicacao/excluir/'.md5($publicacao['id'])),'<i class="fa fa-remove fa-fw"></i> Excluir');
 
                                                 $this->table->add_row($fotopub,$titulopub,$datapub,$alterar,$excluir);
