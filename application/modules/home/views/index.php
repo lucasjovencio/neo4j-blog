@@ -15,10 +15,10 @@
                     foreach ($publicacoes as $publicacao) {
                 ?>
                         <h2>
-                            <a href=""> <?php echo $publicacao['titulo']; ?></a>
+                            <a href="<?php echo base_url("/publicacao/".$publicacao['id'].'/'.limpar($publicacao['titulo']))?>"> <?php echo $publicacao['titulo']; ?></a>
                         </h2>
                         <p class="lead">
-                            por <a href=""><?php echo $publicacao['autor']; ?></a>
+                            por <a href="<?php echo base_url("/autor/".$publicacao['idA'].'/'.limpar($publicacao['autor']))?>"><?php echo $publicacao['autor']; ?></a>
                         </p>
                         <p><span class="glyphicon glyphicon-time"></span><?php echo postadoem($publicacao['data']); ?> </p>
                         <hr>
