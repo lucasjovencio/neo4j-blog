@@ -16,16 +16,24 @@
                 </h1>
                 
                   <div class="col-md-4">
-                    <?php
-                        if($autor[0]['img'] != 'null'){
-                            $fotouser = $autor['img'];
+                   <?php
+                        if($autor[0]['img']!='null'){
+                            $image_properties = array(
+                               'src' =>$autor[0]['img'],
+                               'class' => 'img-responsive'
+                            );
+                            echo img($image_properties);
                         }
                         else{
-                            $fotouser = '/assets/frontend/img/usuarios/semFoto.png';
+                            $image_properties = array(
+                               'src' =>'http://placehold.it/900x300',
+                               'class' => 'img-responsive'
+                            );
+                            echo img($image_properties);
                         }
-                        ?>
                         
-                    <img class="img-responsive img-circle" src="<?php echo base_url($fotouser); ?>" alt="">
+                    ?>
+                    
                     </div>
                     <div class="col-md-8 ">
                         <h2>
