@@ -36,7 +36,7 @@ $version = date('Hi');
 
     <?php 
       $metodo = $this->uri->segment(2);
-      if($metodo === 'publicar'){
+      if($metodo === 'publicar' || $metodo === 'publicacao'){
     ?>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/js/datetimepicker/jquery.datetimepicker.css"/>
     <?php 

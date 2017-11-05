@@ -38,7 +38,7 @@
          </script>
         <?php 
           $metodo = $this->uri->segment(2);
-          if($metodo === 'publicar'){
+          if($metodo === 'publicar' || $metodo === 'publicacao'){
         ?>
             <script type="text/javascript">
               tinymce.init({
