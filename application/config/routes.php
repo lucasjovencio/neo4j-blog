@@ -62,8 +62,11 @@ $route['admin/categoria/alterar/(:any)'] = 'admin/alterar_categoria/$1';
 /* FIM */
 
 /* PUblicacao ADM */
+
 $route['admin/publicacao/(:num)/(:any)'] = 'admin/publicacao/$1/$2';
 $route['admin/publicar/(:any)'] = 'admin/publicar/$1';
+$route['admin/publicacao/alterar/(:num)'] = 'admin/single_publicacao/$1';
+$route['admin/publicacao/alterar/(:num)/(:num)'] = 'admin/single_publicacao/$1/$2';
 /* FIM */
 
 /* PUblicacao Geral */
