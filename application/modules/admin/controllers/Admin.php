@@ -143,9 +143,10 @@ class Admin extends MX_Controller{
         }
 
         /* Paginacao */
-        $post_por_pagina = 5;//(null == $post_por_pagina) ? 2 : $post_por_pagina;
+        
         $config['base_url']     = base_url("admin/publicacao");
         $config['total_rows']   = $this->modelpublicacao->contar();
+        $post_por_pagina = ( $config['total_rows']==1) ? 1 : 5;
         $config['per_page']     = $post_por_pagina;
         /* FIM */
 
@@ -205,8 +206,44 @@ class Admin extends MX_Controller{
         $arr['javascripts']   =   $this->modeljavascripts->listar_javascripts();
 
         $this->template->load("template_backend/main","publicar",$arr);
+    }
+    public function single_publicacao($id,$publicado=null){
+        if(!$this->session->userdata('logado')){
+            redirect(base_url('admin/login'));
+        }
+
+        $this->load->model("Modelcategorias","modelcategorias");
+        $this->load->model('Modelpublicacoes','modelpublicacao');
+        $this->load->model('Modeljavascripts','modeljavascripts');
+
+        $arr['single']       =   $this->modelpublicacao->single_publicacao($id);
+
+        $arr['categorias']   =   $this->modelpublicacao->categoria_to_artigo(
+                                                            $arr['single'][0]['categoria'],
+                                                            $this->modelcategorias->listar_categorias());
+
+        $arr['javascripts']   =   $this->modelpublicacao->javascript_to_artigo(
+                                                            $arr['single'][0]['javascript'],
+                                                            $this->modeljavascripts->listar_javascripts());
 
 
+        //Dados a serem enviados ao cabeçalho
+        $dados['titulo']    =   $arr['single'][0]['titulo'];
+        $dados['subtitulo'] =   $arr['single'][0]['titulo'];
+
+
+        $arr['titulo']      =   $arr['single'][0]['titulo'];
+        $arr['subtitulo']   =   $arr['single'][0]['titulo'];
+        $arr['publicado']   =   $publicado;
+        $arr['heardin']     =   $dados;
+
+
+        $this->load->library('table');
+
+        $this->load->helper('date');
+        
+    
+        $this->template->load("template_backend/main","alterar_publicacao",$arr);
     }
     public function inserir_publicacao(){
         if(!$this->session->userdata('logado')){
@@ -265,6 +302,68 @@ class Admin extends MX_Controller{
                 }
             }
         }
+    }
+    public function atualisar_publicacao(){
+        if(!$this->session->userdata('logado')){
+            redirect(base_url('admin/login'));
+        }
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('txt-titulo','Título','required|min_length[3]');
+        $this->form_validation->set_rules('txt-subtitulo','SubTítulo','required|min_length[3]');
+        $this->form_validation->set_rules('txt-conteudo','Conteudo','required|min_length[25]');
+        $this->form_validation->set_rules('txt-date','Data','required');
+        $this->form_validation->set_rules('select-cat[]','Categoria','required');
+        $this->form_validation->set_rules('select-js[]','JavaScript','required');
+        $this->form_validation->set_rules('userfile','Imagem','trim|xss_clean');
+        $id = $this->input->post('id_img');
+
+        $config['upload_path'] = './assets/frontend/img/publicacao';
+        $config['allowed_types']='jpg';
+        $config['file_name']=$id.'.jpg';
+        $config['overwrite']=TRUE;
+        
+        if ($this->form_validation->run()==false){
+            $id = $this->input->post("txt-id");
+            redirect(base_url('admin/publicacao/alterar/'.$id));
+        }else{
+
+            $this->load->library('upload',$config);
+            if(!$this->upload->do_upload()){
+                echo $this->upload->display_errors();
+            }else{
+                $config2['image_library'] = 'gd2';
+                $config2['source_image']    = './assets/frontend/img/publicacao/'.$id.'.jpg';
+                $config2['create_thumb']    = FALSE;
+                $config2['width']           = 900;
+
+                $this->load->library('image_lib', $config2);
+
+                if($this->image_lib->initialize($config2)){
+                    
+                    $titulo = $this->input->post("txt-titulo");
+                    $subtitulo = $this->input->post("txt-subtitulo");
+                    $conteudo = $this->input->post("txt-conteudo");
+                    $date = $this->input->post("txt-date");
+                    $id = $this->input->post("txt-id");
+                    $id_user = $this->input->post("txt-id-user");
+                    $cat = $this->input->post("select-cat");
+                    $js = $this->input->post("select-js");
+                    $url = $config2['source_image'];
+                    $this->load->model('Modelpublicacoes','modelpublicacao');
+                    if($this->modelpublicacao->alterar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url,$js,$id_user)){
+                        redirect(base_url('admin/publicacao/alterar/'.$id));
+                    }else{
+                        echo("Houve um erro no sistema!");
+                    }
+                    
+                }
+                else{
+                    echo $this->image_lib->display_errors();
+                }
+            }
+        }
+        
     }
     public function usuarios($pular=null,$publicado=null){
         if(!$this->session->userdata('logado') ){
@@ -333,7 +432,6 @@ class Admin extends MX_Controller{
 
         $this->template->load("template_backend/main","perfil",$arr); 
     }
-
     public function inserir_usuario(){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
@@ -438,7 +536,6 @@ class Admin extends MX_Controller{
             echo("Houve um erro no sistema!");
         }
     }
-
     public function salvar_alteracoes_usuario(){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
@@ -546,7 +643,6 @@ class Admin extends MX_Controller{
 
         $this->template->load("template_backend/main_login","login",$arr);
     }
-
     public function login_check(){
         $this->load->library('form_validation');
         $this->form_validation->set_rules('txt-user','Nome do Usuario','required|min_length[3]');
@@ -573,7 +669,6 @@ class Admin extends MX_Controller{
             }
         }
     }
-
     public function logout(){
         if(!$this->session->userdata('logado')){
             redirect(base_url('admin/login'));
