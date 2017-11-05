@@ -88,6 +88,7 @@ Neo4j
 * `(:Usuario)-[:publica {data:"2017-10-22T06:01"}]->(:Publicacao)`
 * `(:Publicacao)-[:contidoEm]->(:Categoria)`
 * `(:Publicacao)-[:extensaoBiblioteca]->(:Javascript)`
+* `(:Usuario)-[r:historico_mudanca{dataModificacao:'',img:'',subtitulo:'',data:'',categoria:'',javascript:''}]->(:Publicacao)`
 
 ### Mudanças
 + Como o projeto está iniciando agora as relações e nodes estão sujeitas a mudanças assim como também a base de dados está sujeita a novos nodes e relacionamentos.
