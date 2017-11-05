@@ -6,9 +6,10 @@ function limpar($string){
     );
     // Traduz os caracteres em $string, baseado no vetor $table
     $string = strtr($string, $table);
-	$string= preg_replace('/[,.;:`´^~\'"]/', null, iconv('UTF-8','ASCII//TRANSLIT',$string));
+	$string= preg_replace('/[,.;&:`´^~\'"]/', null, iconv('UTF-8','ASCII//TRANSLIT',$string));
 	$string= strtolower($string);
 	$string= str_replace(" ", "-", $string);
+    $string= str_replace("--", "-", $string);
 	$string= str_replace("---", "-", $string);
 	return $string;
 }
@@ -65,5 +66,5 @@ function postadoem($string){
     $ano = date('Y', strtotime($string));
     $hora = date('H:i', strtotime($string));
  
-    return $semana.', '.$dia.' de '.$mes.' de '.$ano.' '.$hora;
+    return $semana.', '.$dia.' de '.$mes.' de '.$ano.' às '.$hora;
 }
