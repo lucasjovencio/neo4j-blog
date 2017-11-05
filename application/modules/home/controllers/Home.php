@@ -22,9 +22,11 @@ class Home extends MX_Controller{
         }
 
         /* Paginacao */
-        $post_por_pagina = 2;//(null == $post_por_pagina) ? 2 : $post_por_pagina;
         $config['base_url']     = base_url("publicacao");
         $config['total_rows']   = $this->modelpublicacao->contar();
+        $post_por_pagina = ( $config['total_rows'] > 5 ) ? 5 : $config['total_rows'];
+        //echo $post_por_pagina;
+        //die();
         $config['per_page']     = $post_por_pagina;
         /* FIM */
 
@@ -106,17 +108,23 @@ class Home extends MX_Controller{
 
         /* FIM */
         
-        $arr['publicacoes']    =   $this->modelpublicacao->listar_publicacao_categoria($id,$pular,$post_por_pagina);
+
+        if(!$arr['publicacoes']   =   $this->modelpublicacao->listar_publicacao_categoria($id,$pular,$post_por_pagina)){
+            $arr['publicacoes'] = null;
+            $this->dados['subtitulo']     =   'Não existem publicações para está categoria.';
+            $arr['subtitulo']       =   'Não existem publicações para está categoria.';
+        }else{
+            $this->dados['subtitulo']     =   $arr['publicacoes'][0]['categoria'];
+            $arr['subtitulo']       =   $arr['publicacoes'][0]['categoria'];
+        }
 
         $this->dados['titulo']        =   'Publicações';
-        $this->dados['subtitulo']     =   $arr['publicacoes'][0]['categoria'];
-        $this->dados['subtitulodb']   =  '';
         $arr['titulo']          =   'Publicações';
-        $arr['subtitulo']       =   $arr['publicacoes'][0]['categoria'];
         $arr['subtitulodb']     =  '';
 
         $arr['heardin']=$this->dados;
         $arr['footerurl'] = $this->dados;
+
         $this->template->load("template_frontend/main","categoria",$arr);
     }
     public function sobrenos(){
