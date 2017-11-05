@@ -8,32 +8,32 @@ class Modelpublicacoes extends Abstract_model{
     public function listar_publicacao($pular,$post_por_pagina){
 
         $query = '
-            MATCH (autor:usuario)-[w:publica]->(pub:publicacao)-[r:contidoEm]->(cat:categoria)
+            MATCH (autor:usuario)-[w:publica]->(pub:publicacao)
 
             RETURN autor.nome as nome, 
                 w.data as data,
                 pub.titulo as titulo, 
                 pub.subtitulo as subtitulo, 
                 pub.conteudo as conteudo, 
-                cat.name as name, 
-                id(pub) as id, 
+                id(pub) as id,
+                id(autor) as idA,
                 pub.img as img
-                ORDER BY pub.titulo 
+                ORDER BY pub.data DESC 
                 SKIP {pular} 
                 LIMIT {limit}
         ';
-        $params = ['pular'=>intval($pular),'limit'=>2];
+        $params = ['pular'=>intval($pular),'limit'=>intval($post_por_pagina)];
         if($result = $this->neo4j->get_db()->run($query,$params)){
             $lis = '';
             $cont=0;
     		foreach ($result->records() as $record) {
                 $lis[$cont]['autor'] = $record->value('nome');
                 $lis[$cont]['titulo'] = $record->value('titulo');
-                $lis[$cont]['categoria'] = $record->value('name');
                 $lis[$cont]['subtitulo'] = $record->value('subtitulo');
                 $lis[$cont]['conteudo'] = $record->value('conteudo');
                 $lis[$cont]['data'] = $record->value('data');
                 $lis[$cont]['id'] = $record->value('id');
+                $lis[$cont]['idA'] = $record->value('idA');
                 if($record->value('img') !='null'){                
                     $lis[$cont]['img'] = $record->value('img');
                 }else{
@@ -42,7 +42,6 @@ class Modelpublicacoes extends Abstract_model{
                 
                 $cont++;
     		}
-
             return $lis;
         }
         return null;
@@ -62,11 +61,11 @@ class Modelpublicacoes extends Abstract_model{
                 pub.img as img,
                 id(autor) as id_autor,
                 autor.nome as nome_autor
-                ORDER BY pub.titulo
+                ORDER BY pub.data DESC 
                 SKIP {pular} 
                 LIMIT {limit}
         ';
-        $params = ['pular'=>intval($pular),'limit'=>2,'id'=>intval($id)];
+        $params = ['pular'=>intval($pular),'limit'=>intval($post_por_pagina),'id'=>intval($id)];
         if($result = $this->neo4j->get_db()->run($query,$params)){
             $lis = '';
             $cont=0;
@@ -138,7 +137,8 @@ class Modelpublicacoes extends Abstract_model{
     }
     public function contar(){
         $query = '
-            MATCH (autor:usuario)-[w:publica]->(pub:publicacao)-[r:contidoEm]->(cat:categoria)
+            MATCH (pub:publicacao)
+
             RETURN count(pub) as id
             
         ';
