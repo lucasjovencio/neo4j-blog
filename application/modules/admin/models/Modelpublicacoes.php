@@ -165,6 +165,18 @@ class Modelpublicacoes extends Abstract_model{
         return 0;
     }
     public function alterar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url,$js,$id_user){
+        $params = ['param' => intval($id)];
+        $query = '
+            MATCH (n:publicacao)
+            where id(n) = {param}
+            RETURN n.img as img
+        ';
+        if(($result = $this->neo4j->get_db()->run($query,$params))) {
+            $lis = '';
+            
+            $lis[0]['img'] = $result->getRecord()->value('img');
+        }
+
         $query = "
             match (aut:usuario)-[p:publica]->(pub:publicacao)
             where id(pub)={id} and  aut.user = {id_user}
@@ -220,7 +232,31 @@ class Modelpublicacoes extends Abstract_model{
         };
         
         if($this->neo4j->get_db()->runStack($stack)){
-            return 1;
+            return $lis;
+        }
+        return 0;
+    }
+    public function excluir_publicacao($id){
+
+        $params = ['param' => intval($id)];
+        $query = '
+            MATCH (n:publicacao)
+            where id(n) = {param}
+            RETURN n.img as img
+        ';
+
+        if(($result = $this->neo4j->get_db()->run($query,$params))) {
+            $lis = '';
+            
+            $lis[0]['img'] = $result->getRecord()->value('img');
+        }
+        $query = '
+            MATCH ()-[rt]->(n:publicacao)-[xt]->()
+            where id(n) = {param}
+            DELETE rt,xt,n
+        ';
+        if($this->neo4j->get_db()->run($query, $params)){
+            return $lis;
         }
         return 0;
     }
