@@ -351,7 +351,8 @@ class Admin extends MX_Controller{
                     $js = $this->input->post("select-js");
                     $url = $config2['source_image'];
                     $this->load->model('Modelpublicacoes','modelpublicacao');
-                    if($this->modelpublicacao->alterar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url,$js,$id_user)){
+                    if($img = $this->modelpublicacao->alterar($titulo,$subtitulo,$conteudo,$date,$id,$cat,$url,$js,$id_user)){
+                        unlink($img[0]['img']);
                         redirect(base_url('admin/publicacao/alterar/'.$id));
                     }else{
                         echo("Houve um erro no sistema!");
@@ -363,6 +364,18 @@ class Admin extends MX_Controller{
                 }
             }
         }
+    }
+    public function excluir_publicacao($id){
+        if(!$this->session->userdata('logado')){
+            redirect(base_url('admin/login'));
+        }
+        $this->load->model('Modelpublicacoes','modelpublicacao');
+
+        if($img = $this->modelpublicacao->excluir_publicacao($id)){
+            unlink($img[0]['img']);
+        }
+        redirect(base_url('admin/publicar'));
+        
         
     }
     public function usuarios($pular=null,$publicado=null){
