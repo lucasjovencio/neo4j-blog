@@ -41,7 +41,7 @@ admin/categoria/excluir       | OK, apenas para administradores.
 admin/publicar                | OK.
 admin/publicacao              | OK.
 admin/publicacao/alterar      | OK.
-admin/publicacao/excluir      | Falta implementar.
+admin/publicacao/excluir      | OK.
 admin/usuario                 | OK, apenas para administradores.
 admin/usuario/alterar         | OK, apenas para administradores.
 admin/usuario/desativar       | OK, apenas para administradores.
