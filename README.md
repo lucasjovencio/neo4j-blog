@@ -19,7 +19,7 @@ Fase de Desenvolvimento
 
 + Arquivo de configuração Neo4j  
     + application/libraries/Neo4j.php 
-    	+ Nesse caminho você poderá encnontrar o arquivo de configuração do neo4j, basta atualizar essas informações com as informações de sua base de dados.
+    	+ Nesse caminho você poderá encontrar o arquivo de configuração do neo4j, basta atualizar essas informações com as informações de sua base de dados.
 
 
 # Project Status
