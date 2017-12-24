@@ -67,6 +67,8 @@ $route['admin/publicacao/(:num)/(:any)'] = 'admin/publicacao/$1/$2';
 $route['admin/publicar/(:any)'] = 'admin/publicar/$1';
 $route['admin/publicacao/alterar/(:num)'] = 'admin/single_publicacao/$1';
 $route['admin/publicacao/alterar/(:num)/(:num)'] = 'admin/single_publicacao/$1/$2';
+$route['admin/publicacao/excluir/(:num)'] = 'admin/excluir_publicacao/$1';
+
 /* FIM */
 
 /* PUblicacao Geral */
@@ -94,7 +96,6 @@ $route['admin/usuarios/alterar_usuario'] 		= 'admin/salvar_alteracoes_usuario';
 $route['admin/desativar_usuario/(:any)'] 		= 'admin/desativar_usuario/$1';
 $route['admin/ativar_usuario/(:any)'] 			= 'admin/ativar_usuario/$1';
 $route['admin/perfil/salvar_alteracoes_perfil'] = 'admin/salvar_alteracoes_perfil';
-
 
 
 $route['admin/login'] = 'admin/pag_login';
